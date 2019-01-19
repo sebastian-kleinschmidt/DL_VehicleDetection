@@ -6,10 +6,12 @@ import glob
 from random import randint
 from sklearn import svm
 from skimage.feature import hog
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
+
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
-from sklearn import svm, grid_search, datasets
+#from sklearn import svm, grid_search, datasets
+from sklearn import svm, datasets
 import pickle
 import os
 from scipy.ndimage.measurements import label
@@ -188,7 +190,7 @@ def plotHOGParameterset(cars,notcars,orient, pix_per_cell, cell_per_block):
 def trainClassifier(X,y):
     parameters = {'kernel':('linear', 'rbf'), 'C':[1, 10]}
     svr = svm.SVC()
-    clf = grid_search.GridSearchCV(svr, parameters)
+    clf = GridSearchCV(svr, parameters)
     clf.fit(X, y)
     return clf
 
